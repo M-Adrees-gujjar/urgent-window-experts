@@ -28,3 +28,5 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+Public pages use independent file-based routes with a shared site shell and quote form, so each service page can own search metadata while navigation stays consistent.
