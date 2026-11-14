@@ -1,6 +1,6 @@
 import { useState, type FormEvent, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Check, ChevronDown } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, Menu, X } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 
 import { Button } from "@/components/ui/button";
@@ -23,6 +23,8 @@ const navigation = [
 ];
 
 export function SiteLayout({ children }: { children: ReactNode }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="bg-primary text-primary-foreground">
@@ -35,24 +37,55 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       </div>
       <header className="border-b border-border bg-background">
         <div className="page-shell flex min-h-[5.25rem] items-center justify-between gap-5">
-          <Link aria-label="AK Glazing home" className="flex shrink-0 items-center gap-3" to="/">
+          <Link aria-label="AK Glazing home" className="flex shrink-0 items-center gap-3" onClick={() => setMenuOpen(false)} to="/">
             <span className="grid size-11 place-items-center bg-primary font-heading text-lg font-extrabold text-primary-foreground">AK</span>
             <span className="leading-tight">
               <span className="block font-heading text-lg font-extrabold">AK Glazing</span>
               <span className="mt-1 block text-[0.68rem] text-muted-foreground">Enfield &amp; North London</span>
             </span>
           </Link>
-          <nav aria-label="Main navigation" className="flex min-w-0 items-center gap-5 overflow-x-auto py-3 text-sm font-medium [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <nav aria-label="Main navigation" className="hidden items-center gap-5 py-3 text-sm font-medium lg:flex">
             {navigation.map((item) => (
-              <Link key={item.to} className="shrink-0 text-foreground/80 transition-colors hover:text-primary" to={item.to}>
+              <Link key={item.to} className="text-foreground/80 transition-colors hover:text-primary" to={item.to}>
                 {item.label}
               </Link>
             ))}
           </nav>
-          <Button asChild className="hidden shrink-0 sm:inline-flex" size="default">
-            <Link to="/quote">Get a quote</Link>
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button asChild className="hidden shrink-0 lg:inline-flex" size="default">
+              <Link to="/quote">Get a quote</Link>
+            </Button>
+            <button
+              aria-controls="mobile-navigation"
+              aria-expanded={menuOpen}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              className="grid size-11 place-items-center rounded-md text-foreground transition-colors hover:bg-secondary lg:hidden"
+              onClick={() => setMenuOpen((open) => !open)}
+              type="button"
+            >
+              {menuOpen ? <X aria-hidden="true" className="size-5" /> : <Menu aria-hidden="true" className="size-5" />}
+            </button>
+          </div>
         </div>
+        {menuOpen && (
+          <nav aria-label="Mobile navigation" className="border-t border-border bg-background lg:hidden" id="mobile-navigation">
+            <div className="page-shell grid gap-1 py-3">
+              {navigation.map((item) => (
+                <Link
+                  key={item.to}
+                  className="rounded-md px-3 py-3 text-sm font-medium text-foreground/80 transition-colors hover:bg-secondary hover:text-primary"
+                  onClick={() => setMenuOpen(false)}
+                  to={item.to}
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <Button asChild className="mt-2" size="default">
+                <Link onClick={() => setMenuOpen(false)} to="/quote">Get a quote</Link>
+              </Button>
+            </div>
+          </nav>
+        )}
       </header>
       <main>{children}</main>
       <footer className="bg-foreground text-background">
@@ -81,6 +114,17 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             </Button>
           </div>
         </div>
+        <section className="page-shell pb-10" aria-labelledby="business-map-heading">
+          <h2 className="font-heading text-base font-bold" id="business-map-heading">Find AK Glazing</h2>
+          <iframe
+            allowFullScreen
+            className="mt-4 h-[280px] w-full border-0 sm:h-[360px]"
+            loading="lazy"
+            referrerPolicy="strict-origin-when-cross-origin"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2477.42706786954!2d-0.0619314!3d51.615385599999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761f6c83fd127d%3A0xd4e5aae9968ca072!2sAk%20glazing!5e0!3m2!1sen!2s!4v1794658449646!5m2!1sen!2s"
+            title="AK Glazing on Google Maps"
+          />
+        </section>
         <div className="border-t border-background/20">
           <div className="page-shell flex flex-wrap justify-between gap-3 py-4 text-xs text-background/65">
             <span>© {new Date().getFullYear()} AK Glazing</span>
