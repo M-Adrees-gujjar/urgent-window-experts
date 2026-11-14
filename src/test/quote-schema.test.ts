@@ -34,4 +34,9 @@ describe("quote request validation", () => {
     expect(quoteRequestSchema.safeParse({ ...validRequest, service: "Windows" }).success).toBe(true);
     expect(quoteRequestSchema.safeParse({ ...validRequest, service: "Not a service" }).success).toBe(false);
   });
+
+  it("requires a service selection", () => {
+    const { service: _service, ...requestWithoutService } = validRequest;
+    expect(quoteRequestSchema.safeParse(requestWithoutService).success).toBe(false);
+  });
 });

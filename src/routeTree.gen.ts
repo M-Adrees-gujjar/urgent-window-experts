@@ -10,33 +10,141 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as DoorsRouteImport } from './routes/doors'
+import { Route as ExtensionsRouteImport } from './routes/extensions'
+import { Route as GlazingRouteImport } from './routes/glazing'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as QuoteRouteImport } from './routes/quote'
+import { Route as RoofGlazingRouteImport } from './routes/roof-glazing'
+import { Route as WindowsRouteImport } from './routes/windows'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DoorsRoute = DoorsRouteImport.update({
+  id: '/doors',
+  path: '/doors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExtensionsRoute = ExtensionsRouteImport.update({
+  id: '/extensions',
+  path: '/extensions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GlazingRoute = GlazingRouteImport.update({
+  id: '/glazing',
+  path: '/glazing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuoteRoute = QuoteRouteImport.update({
+  id: '/quote',
+  path: '/quote',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RoofGlazingRoute = RoofGlazingRouteImport.update({
+  id: '/roof-glazing',
+  path: '/roof-glazing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WindowsRoute = WindowsRouteImport.update({
+  id: '/windows',
+  path: '/windows',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/doors': typeof DoorsRoute
+  '/extensions': typeof ExtensionsRoute
+  '/glazing': typeof GlazingRoute
+  '/privacy': typeof PrivacyRoute
+  '/quote': typeof QuoteRoute
+  '/roof-glazing': typeof RoofGlazingRoute
+  '/windows': typeof WindowsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/doors': typeof DoorsRoute
+  '/extensions': typeof ExtensionsRoute
+  '/glazing': typeof GlazingRoute
+  '/privacy': typeof PrivacyRoute
+  '/quote': typeof QuoteRoute
+  '/roof-glazing': typeof RoofGlazingRoute
+  '/windows': typeof WindowsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/doors': typeof DoorsRoute
+  '/extensions': typeof ExtensionsRoute
+  '/glazing': typeof GlazingRoute
+  '/privacy': typeof PrivacyRoute
+  '/quote': typeof QuoteRoute
+  '/roof-glazing': typeof RoofGlazingRoute
+  '/windows': typeof WindowsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/doors'
+    | '/extensions'
+    | '/glazing'
+    | '/privacy'
+    | '/quote'
+    | '/roof-glazing'
+    | '/windows'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/doors'
+    | '/extensions'
+    | '/glazing'
+    | '/privacy'
+    | '/quote'
+    | '/roof-glazing'
+    | '/windows'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/doors'
+    | '/extensions'
+    | '/glazing'
+    | '/privacy'
+    | '/quote'
+    | '/roof-glazing'
+    | '/windows'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  DoorsRoute: typeof DoorsRoute
+  ExtensionsRoute: typeof ExtensionsRoute
+  GlazingRoute: typeof GlazingRoute
+  PrivacyRoute: typeof PrivacyRoute
+  QuoteRoute: typeof QuoteRoute
+  RoofGlazingRoute: typeof RoofGlazingRoute
+  WindowsRoute: typeof WindowsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +156,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/doors': {
+      id: '/doors'
+      path: '/doors'
+      fullPath: '/doors'
+      preLoaderRoute: typeof DoorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/extensions': {
+      id: '/extensions'
+      path: '/extensions'
+      fullPath: '/extensions'
+      preLoaderRoute: typeof ExtensionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/glazing': {
+      id: '/glazing'
+      path: '/glazing'
+      fullPath: '/glazing'
+      preLoaderRoute: typeof GlazingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quote': {
+      id: '/quote'
+      path: '/quote'
+      fullPath: '/quote'
+      preLoaderRoute: typeof QuoteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/roof-glazing': {
+      id: '/roof-glazing'
+      path: '/roof-glazing'
+      fullPath: '/roof-glazing'
+      preLoaderRoute: typeof RoofGlazingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/windows': {
+      id: '/windows'
+      path: '/windows'
+      fullPath: '/windows'
+      preLoaderRoute: typeof WindowsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  DoorsRoute: DoorsRoute,
+  ExtensionsRoute: ExtensionsRoute,
+  GlazingRoute: GlazingRoute,
+  PrivacyRoute: PrivacyRoute,
+  QuoteRoute: QuoteRoute,
+  RoofGlazingRoute: RoofGlazingRoute,
+  WindowsRoute: WindowsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

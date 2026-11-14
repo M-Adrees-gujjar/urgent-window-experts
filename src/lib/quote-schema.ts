@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const quoteServices = [
+export const quoteServices: ["Windows", "Doors", "Glazing", "Extensions & conservatories", "Roof glazing", "Other"] = [
   "Windows",
   "Doors",
   "Glazing",
