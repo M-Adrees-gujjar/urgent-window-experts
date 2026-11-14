@@ -1,6 +1,6 @@
 import { useState, type FormEvent, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Check, ChevronDown, Menu, X } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, Mail, Menu, MessageCircle, Phone, X } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { quoteRequestSchema, quoteServices, type QuoteRequestInput } from "@/lib/quote-schema";
 import { servicePages, type ServiceSlug } from "@/lib/site-content";
 import { submitQuoteRequest } from "@/lib/quote.functions";
+
+const mapsUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2477.42706786954!2d-0.0619314!3d51.615385599999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761f6c83fd127d%3A0xd4e5aae9968ca072!2sAk%20glazing!5e0!3m2!1sen!2s!4v1794658449646!5m2!1sen!2s";
+const reviewsUrl = "https://www.google.com/maps/search/?api=1&query=AK%20Glazing&query_place_id=0x48761f6c83fd127d%3A0xd4e5aae9968ca072";
 
 const navigation = [
   { label: "Windows", to: "/windows" as const },
@@ -121,7 +124,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             className="mt-4 h-[280px] w-full border-0 sm:h-[360px]"
             loading="lazy"
             referrerPolicy="strict-origin-when-cross-origin"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2477.42706786954!2d-0.0619314!3d51.615385599999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761f6c83fd127d%3A0xd4e5aae9968ca072!2sAk%20glazing!5e0!3m2!1sen!2s!4v1794658449646!5m2!1sen!2s"
+            src={mapsUrl}
             title="AK Glazing on Google Maps"
           />
         </section>
@@ -132,6 +135,65 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           </div>
         </div>
       </footer>
+      <a
+        aria-label="Read more AK Glazing reviews on Google Maps"
+        className="fixed bottom-4 left-4 z-50 inline-flex max-w-[calc(100vw-5.5rem)] cursor-pointer items-center gap-2.5 rounded-xl bg-white px-4 py-3 text-sm font-medium text-neutral-900 shadow-lg ring-1 ring-black/5 transition-transform hover:-translate-y-0.5"
+        href={reviewsUrl}
+        rel="noreferrer"
+        target="_blank"
+      >
+        <span aria-hidden="true" className="bg-gradient-to-br from-blue-600 via-green-500 to-yellow-500 bg-clip-text text-xl font-bold text-transparent">G</span>
+        <span>Read more Reviews</span>
+      </a>
+      <FloatingContactActions />
+    </div>
+  );
+}
+
+function FloatingContactActions() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="fixed bottom-4 right-4 z-50 flex flex-col items-center gap-3">
+      {open && (
+        <>
+          <a
+            aria-label="Chat with AK Glazing on WhatsApp"
+            className="grid size-14 cursor-pointer place-items-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-105"
+            href="https://wa.me/447928516083"
+            rel="noreferrer"
+            target="_blank"
+            title="WhatsApp"
+          >
+            <MessageCircle aria-hidden="true" className="size-6" />
+          </a>
+          <Link
+            aria-label="Send AK Glazing a message"
+            className="grid size-14 cursor-pointer place-items-center rounded-full bg-rose-600 text-white shadow-lg transition-transform hover:scale-105"
+            title="Email"
+            to="/quote"
+          >
+            <Mail aria-hidden="true" className="size-6" />
+          </Link>
+          <a
+            aria-label="Call AK Glazing"
+            className="grid size-14 cursor-pointer place-items-center rounded-full bg-emerald-500 text-white shadow-lg transition-transform hover:scale-105"
+            href="tel:+447928516083"
+            title="Call"
+          >
+            <Phone aria-hidden="true" className="size-6" />
+          </a>
+        </>
+      )}
+      <button
+        aria-expanded={open}
+        aria-label={open ? "Close contact options" : "Open contact options"}
+        className="grid size-14 cursor-pointer place-items-center rounded-full bg-black text-white shadow-lg transition-transform hover:scale-105"
+        onClick={() => setOpen((current) => !current)}
+        type="button"
+      >
+        {open ? <X aria-hidden="true" className="size-7" /> : <MessageCircle aria-hidden="true" className="size-7" />}
+      </button>
     </div>
   );
 }
