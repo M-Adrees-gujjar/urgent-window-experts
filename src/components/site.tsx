@@ -14,7 +14,7 @@ import { servicePages, type ServiceSlug } from "@/lib/site-content";
 import { submitQuoteRequest } from "@/lib/quote.functions";
 
 const mapsUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2477.42706786954!2d-0.0619314!3d51.615385599999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761f6c83fd127d%3A0xd4e5aae9968ca072!2sAk%20glazing!5e0!3m2!1sen!2s!4v1794658449646!5m2!1sen!2s";
-const reviewsUrl = "https://www.google.com/maps/search/?api=1&query=AK%20Glazing&query_place_id=0x48761f6c83fd127d%3A0xd4e5aae9968ca072";
+const reviewsUrl = "https://www.google.com/maps?cid=15340855625937363058";
 
 const navigation = [
   { label: "Windows", to: "/windows" as const },
@@ -40,12 +40,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       </div>
       <header className="border-b border-border bg-background">
         <div className="page-shell flex min-h-[5.25rem] items-center justify-between gap-5">
-          <Link aria-label="AK Glazing home" className="flex shrink-0 items-center gap-3" onClick={() => setMenuOpen(false)} to="/">
-            <span className="grid size-11 place-items-center bg-primary font-heading text-lg font-extrabold text-primary-foreground">AK</span>
-            <span className="leading-tight">
-              <span className="block font-heading text-lg font-extrabold">AK Glazing</span>
-              <span className="mt-1 block text-[0.68rem] text-muted-foreground">Enfield &amp; North London</span>
-            </span>
+          <Link aria-label="AK Glazing home" className="flex shrink-0 items-center" onClick={() => setMenuOpen(false)} to="/">
+            <img alt="AK Glazing — Enfield & North London" className="h-14 w-[84px] object-contain" height="1024" src="/web-logo.png" width="1536" />
           </Link>
           <nav aria-label="Main navigation" className="hidden items-center gap-5 py-3 text-sm font-medium lg:flex">
             {navigation.map((item) => (
@@ -71,32 +67,69 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           </div>
         </div>
         {menuOpen && (
-          <nav aria-label="Mobile navigation" className="border-t border-border bg-background lg:hidden" id="mobile-navigation">
-            <div className="page-shell grid gap-1 py-3">
-              {navigation.map((item) => (
-                <Link
-                  key={item.to}
-                  className="rounded-md px-3 py-3 text-sm font-medium text-foreground/80 transition-colors hover:bg-secondary hover:text-primary"
-                  onClick={() => setMenuOpen(false)}
-                  to={item.to}
-                >
-                  {item.label}
+          <div className="fixed inset-0 z-[60] lg:hidden">
+            <button
+              aria-label="Close navigation menu"
+              className="animate-in fade-in absolute inset-0 cursor-pointer bg-black/45 duration-200"
+              onClick={() => setMenuOpen(false)}
+              type="button"
+            />
+            <nav
+              aria-label="Mobile navigation"
+              aria-modal="true"
+              className="animate-in slide-in-from-right absolute inset-y-0 right-0 flex w-[min(22rem,88vw)] flex-col bg-background p-6 shadow-2xl duration-300"
+              id="mobile-navigation"
+              role="dialog"
+            >
+              <div className="flex items-center justify-between border-b border-border pb-5">
+                <Link aria-label="AK Glazing home" className="flex items-center" onClick={() => setMenuOpen(false)} to="/">
+                  <img alt="AK Glazing — Enfield & North London" className="h-12 w-[72px] object-contain" height="1024" src="/web-logo.png" width="1536" />
                 </Link>
-              ))}
-              <Button asChild className="mt-2" size="default">
-                <Link onClick={() => setMenuOpen(false)} to="/quote">Get a quote</Link>
-              </Button>
-            </div>
-          </nav>
+                <button
+                  aria-label="Close navigation menu"
+                  className="grid size-10 cursor-pointer place-items-center rounded-full hover:bg-secondary"
+                  onClick={() => setMenuOpen(false)}
+                  type="button"
+                >
+                  <X aria-hidden="true" className="size-5" />
+                </button>
+              </div>
+              <div className="grid gap-1 py-5">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.to}
+                    className="rounded-md px-3 py-3 text-base font-medium text-foreground/80 transition-colors hover:bg-secondary hover:text-primary"
+                    onClick={() => setMenuOpen(false)}
+                    to={item.to}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+                <Button asChild className="mt-3" size="default">
+                  <Link onClick={() => setMenuOpen(false)} to="/quote">Get a quote</Link>
+                </Button>
+              </div>
+            </nav>
+          </div>
         )}
       </header>
       <main>{children}</main>
+      <section className="page-shell py-10 sm:py-12" aria-labelledby="business-map-heading">
+        <h2 className="font-heading text-base font-bold" id="business-map-heading">Find AK Glazing</h2>
+        <iframe
+          allowFullScreen
+          className="mt-4 h-[280px] w-full border-0 sm:h-[360px]"
+          loading="lazy"
+          referrerPolicy="strict-origin-when-cross-origin"
+          src={mapsUrl}
+          title="AK Glazing on Google Maps"
+        />
+      </section>
       <footer className="bg-foreground text-background">
         <div className="page-shell grid gap-10 py-12 md:grid-cols-[1.2fr_1fr_1fr] md:py-16">
           <div>
-            <Link className="inline-flex items-center gap-3" to="/">
-              <span className="grid size-10 place-items-center bg-background font-heading font-extrabold text-foreground">AK</span>
-              <span className="font-heading text-xl font-bold">AK Glazing</span>
+            <Link aria-label="AK Glazing home" className="inline-flex items-center" to="/">
+              <img alt="AK Glazing — Enfield & North London" className="h-16 w-24 object-contain" height="1024" src="/web-logo.png" width="1536" />
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-6 text-background/75">Windows, doors and glazing, considered for your home and the way you live.</p>
             <p className="mt-3 text-sm text-background/75">Serving Enfield and North London.</p>
@@ -117,21 +150,24 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             </Button>
           </div>
         </div>
-        <section className="page-shell pb-10" aria-labelledby="business-map-heading">
-          <h2 className="font-heading text-base font-bold" id="business-map-heading">Find AK Glazing</h2>
-          <iframe
-            allowFullScreen
-            className="mt-4 h-[280px] w-full border-0 sm:h-[360px]"
-            loading="lazy"
-            referrerPolicy="strict-origin-when-cross-origin"
-            src={mapsUrl}
-            title="AK Glazing on Google Maps"
-          />
-        </section>
         <div className="border-t border-background/20">
           <div className="page-shell flex flex-wrap justify-between gap-3 py-4 text-xs text-background/65">
             <span>© {new Date().getFullYear()} AK Glazing</span>
             <span>Homes across Enfield &amp; North London</span>
+          </div>
+        </div>
+        <div className="border-t border-background/10">
+          <div className="flex justify-center py-3">
+            <a
+              className="inline-flex items-center gap-2 text-xs text-background/70 transition-colors hover:text-background"
+              href="https://www.metrovalleydigital.com"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <span>Powered by</span>
+              <img alt="" className="h-6 w-5 object-contain" height="774" src="/developer_site_logo.png" width="639" />
+              <span>Metro Valley Digital</span>
+            </a>
           </div>
         </div>
       </footer>
@@ -142,8 +178,10 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         rel="noreferrer"
         target="_blank"
       >
-        <span aria-hidden="true" className="bg-gradient-to-br from-blue-600 via-green-500 to-yellow-500 bg-clip-text text-xl font-bold text-transparent">G</span>
-        <span>Read more Reviews</span>
+        <span>100+ reviews on</span>
+        <span aria-label="Google" className="inline-flex font-heading text-lg font-bold tracking-[-0.06em]">
+          <span className="text-[#4285F4]">G</span><span className="text-[#EA4335]">o</span><span className="text-[#FBBC05]">o</span><span className="text-[#4285F4]">g</span><span className="text-[#34A853]">l</span><span className="text-[#EA4335]">e</span>
+        </span>
       </a>
       <FloatingContactActions />
     </div>
