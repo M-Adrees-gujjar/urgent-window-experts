@@ -14,7 +14,7 @@ export const quoteRequestSchema = z.object({
   email: z.string().trim().email("Enter a valid email address.").max(255, "Email must be 255 characters or fewer."),
   phone: z.string().trim().max(40, "Phone number must be 40 characters or fewer.").optional().default(""),
   postcode: z.string().trim().min(2, "Enter your postcode.").max(16, "Postcode must be 16 characters or fewer."),
-  service: z.enum(quoteServices, { error: "Choose the service you need." }),
+  service: z.enum(quoteServices, { message: "Choose the service you need." }),
   message: z.string().trim().max(2000, "Message must be 2,000 characters or fewer.").optional().default(""),
 });
 

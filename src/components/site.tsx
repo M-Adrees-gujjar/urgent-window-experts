@@ -274,7 +274,7 @@ export function QuoteForm() {
   );
 }
 
-function FormField({ children, error, id, label }: { children: ReactNode; error?: string; id: string; label: string }) {
+function FormField({ children, error, id, label }: { children: ReactNode; error?: string | undefined; id: string; label: string }) {
   return (
     <div className="grid gap-2">
       <Label htmlFor={id}>{label}</Label>
