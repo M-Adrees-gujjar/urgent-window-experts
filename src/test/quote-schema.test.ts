@@ -22,7 +22,8 @@ describe("quote request validation", () => {
 
   it("requires a valid email address no longer than 255 characters", () => {
     expect(quoteRequestSchema.safeParse({ ...validRequest, email: "not-an-email" }).success).toBe(false);
-    expect(quoteRequestSchema.safeParse({ ...validRequest, email: `${"a".repeat(243)}@example.com` }).success).toBe(false);
+    expect(quoteRequestSchema.safeParse({ ...validRequest, email: `${"a".repeat(243)}@example.com` }).success).toBe(true);
+    expect(quoteRequestSchema.safeParse({ ...validRequest, email: `${"a".repeat(244)}@example.com` }).success).toBe(false);
   });
 
   it("accepts messages up to 2,000 characters and rejects longer messages", () => {
